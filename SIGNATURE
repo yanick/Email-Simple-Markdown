@@ -1,0 +1,37 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.68.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 bd943cc764b20718a4ea4770d2980e4b2a1301f0 AUTHOR_PLEDGE
+SHA1 a41d59bce4c83255bbbb93b3265970874798e740 Build.PL
+SHA1 10b48fe3b002fbe4c082e803e4342d470a3d73ad Changes
+SHA1 a3e403014334d1fbaca441ecfe4458344642c9e0 INSTALL
+SHA1 33260abc93b43a44581b0b6263d7e4318f4122bb LICENSE
+SHA1 4f79b5d7ddd5ef83ba86d1adfc9eaf42d36d23c1 MANIFEST
+SHA1 eacf0b8fce9ab6d6bc1d36c2ca7d537c2f4a3109 META.json
+SHA1 c50ab93a64f6721d6211ac5a872a8d8dfc3eb1b5 META.yml
+SHA1 c7dd0c82556b52ec23f3d8fc52d57ccca51d381c README
+SHA1 80e3f3f6df85b7f9e5adb9f291f565c4f0145ef7 README.mkdn
+SHA1 eac229a7bfb5f8769786c1f09f794971583c520c lib/Email/Simple/Markdown.pm
+SHA1 3cbe905b92fbc69d59a06031d5ce6c837b352aa2 t/00-compile.t
+SHA1 473906254ecd96009795d4b7fbc82fac48c03ecd t/000-report-versions.t
+SHA1 bbb06fad723e9a34152521a6fe88845b55c95a6e t/basic.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.11 (GNU/Linux)
+
+iEYEARECAAYFAk+0Vk4ACgkQ34Hwf+GwC4wbDQCeM1ZUZ06Y15tVX7/Df87Y4w/N
+ZF0AoIsIYgeD0voLW3uTf5LuyLClP8PI
+=ZMb0
+-----END PGP SIGNATURE-----

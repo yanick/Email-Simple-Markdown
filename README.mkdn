@@ -1,0 +1,53 @@
+# NAME
+
+Email::Simple::Markdown - simple email creation with auto text and html multipart body
+
+# VERSION
+
+version 0.1.0
+
+# SYNOPSIS
+
+    use Email::Simple::Markdown;
+
+    my $email = Email::Simple::Markdown->create(
+        header => [
+            From    => 'me@here.com',
+            To      => 'you@there.com',
+            Subject => q{Here's a multipart email},
+        ],
+        body => '[this](http://metacpan.org/search?q=Email::Simple::Markdown) is *amazing*',
+    );
+
+    print $email->as_string;
+
+# DESCRIPTION
+
+_Email::Simple::Markdown_ behaves almost exactly like [Email::Simple](http://search.cpan.org/perldoc?Email::Simple),
+excepts for one detail: when its method `as_string()` is invoked, the
+returned string representation of the email has multipart body with a 
+_text/plain_ element (the original body), and a _text/html_ element,
+the markdown rendering of the text body.
+
+The markdown convertion is done using [Text::MultiMarkdown](http://search.cpan.org/perldoc?Text::MultiMarkdown).
+
+# METHODS
+
+_Email::Simple::Markdown_ inherits all the methods if [Email::Simple](http://search.cpan.org/perldoc?Email::Simple). 
+In addition, it provides one more method: _with_markdown_.
+
+## with_markdown()
+
+Returns an [Email::Abstract](http://search.cpan.org/perldoc?Email::Abstract) representation of the email, with 
+its multipart body.
+
+# AUTHOR
+
+Yanick Champoux <yanick@babyl.dyndns.org>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012 by Yanick Champoux.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
