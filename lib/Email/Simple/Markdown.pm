@@ -37,6 +37,9 @@ use strict;
 use warnings;
 
 use Email::Abstract;
+use Email::MIME;
+use Email::Simple;
+
 use Text::MultiMarkdown qw/ markdown /;
 
 use parent 'Email::Simple';
