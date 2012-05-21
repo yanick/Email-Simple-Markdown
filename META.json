@@ -27,6 +27,7 @@
       "runtime" : {
          "requires" : {
             "Email::Abstract" : "0",
+            "Email::MIME" : "0",
             "Email::Simple" : "0",
             "Text::MultiMarkdown" : "0",
             "parent" : "0",
@@ -48,7 +49,7 @@
    "provides" : {
       "Email::Simple::Markdown" : {
          "file" : "lib/Email/Simple/Markdown.pm",
-         "version" : "v0.1.0"
+         "version" : "v0.2.0"
       }
    },
    "release_status" : "stable",
@@ -64,7 +65,7 @@
          "web" : "https://github.com/yanick/Email-Simple-Markdown"
       }
    },
-   "version" : "0.1.0",
+   "version" : "0.2.0",
    "x_author_pledge" : {
       "version" : 1
    },

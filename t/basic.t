@@ -19,4 +19,3 @@ my $text = $email->as_string;
 isa_ok $email->with_markdown, 'Email::Abstract';
 
 like $text, qr#<em>amazing</em>#, 'html is present';
-

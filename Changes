@@ -1,5 +1,8 @@
 Revision history for Email-Simple-Markdown
 
+0.2.0 2012-05-21
+ - [BUG FIXES] - Add Email::MIME to the dependency list.
+
 0.1.0 2012-05-16
  - First version, unleashed on an unsuspecting world.
 

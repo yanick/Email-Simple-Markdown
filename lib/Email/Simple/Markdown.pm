@@ -3,7 +3,7 @@ BEGIN {
   $Email::Simple::Markdown::AUTHORITY = 'cpan:YANICK';
 }
 {
-  $Email::Simple::Markdown::VERSION = '0.1.0';
+  $Email::Simple::Markdown::VERSION = '0.2.0';
 }
 # ABSTRACT: simple email creation with auto text and html multipart body
 
@@ -12,6 +12,9 @@ use strict;
 use warnings;
 
 use Email::Abstract;
+use Email::MIME;
+use Email::Simple;
+
 use Text::MultiMarkdown qw/ markdown /;
 
 use parent 'Email::Simple';
@@ -59,7 +62,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 =head1 VERSION
 
-version 0.1.0
+version 0.2.0
 
 =head1 SYNOPSIS
 

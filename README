@@ -3,7 +3,7 @@ NAME
     multipart body
 
 VERSION
-    version 0.1.0
+    version 0.2.0
 
 SYNOPSIS
         use Email::Simple::Markdown;

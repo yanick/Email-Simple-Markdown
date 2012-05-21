@@ -22,9 +22,10 @@ name: Email-Simple-Markdown
 provides:
   Email::Simple::Markdown:
     file: lib/Email/Simple/Markdown.pm
-    version: v0.1.0
+    version: v0.2.0
 requires:
   Email::Abstract: 0
+  Email::MIME: 0
   Email::Simple: 0
   Text::MultiMarkdown: 0
   parent: 0
@@ -34,7 +35,7 @@ resources:
   bugtracker: http://rt.cpan.org/Public/Dist/Display.html?Name=Email-Simple-Markdown
   homepage: http://search.cpan.org/dist/Email-Simple-Markdown/
   repository: https://github.com/yanick/Email-Simple-Markdown.git
-version: 0.1.0
+version: 0.2.0
 x_author_pledge:
   version: 1
 x_authority: cpan:YANICK
