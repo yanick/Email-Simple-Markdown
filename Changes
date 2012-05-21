@@ -2,6 +2,8 @@ Revision history for Email-Simple-Markdown
 
 {{$NEXT}}
 
+0.3.0     2012-05-21
+
 [ FEATURES ]
 
   - Add possibility to add a cascading stylesheet to the html part.
