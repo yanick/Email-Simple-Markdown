@@ -26,10 +26,11 @@
       },
       "runtime" : {
          "requires" : {
+            "Carp" : "0",
             "Email::Abstract" : "0",
             "Email::MIME" : "0",
             "Email::Simple" : "0",
-            "Text::MultiMarkdown" : "0",
+            "List::Util" : "0",
             "parent" : "0",
             "strict" : "0",
             "warnings" : "0"
@@ -37,7 +38,6 @@
       },
       "test" : {
          "requires" : {
-            "Carp" : "0",
             "File::Find" : "0",
             "File::Temp" : "0",
             "Scalar::Util" : "0",
@@ -49,7 +49,7 @@
    "provides" : {
       "Email::Simple::Markdown" : {
          "file" : "lib/Email/Simple/Markdown.pm",
-         "version" : "v0.2.0"
+         "version" : "v0.3.0"
       }
    },
    "release_status" : "stable",
@@ -65,7 +65,7 @@
          "web" : "https://github.com/yanick/Email-Simple-Markdown"
       }
    },
-   "version" : "0.2.0",
+   "version" : "0.3.0",
    "x_author_pledge" : {
       "version" : 1
    },

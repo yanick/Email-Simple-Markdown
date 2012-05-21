@@ -3,7 +3,7 @@ BEGIN {
   $Email::Simple::Markdown::AUTHORITY = 'cpan:YANICK';
 }
 {
-  $Email::Simple::Markdown::VERSION = '0.2.0';
+  $Email::Simple::Markdown::VERSION = '0.3.0';
 }
 # ABSTRACT: simple email creation with auto text and html multipart body
 
@@ -11,13 +11,89 @@ BEGIN {
 use strict;
 use warnings;
 
+use Carp;
+
 use Email::Abstract;
 use Email::MIME;
 use Email::Simple;
 
-use Text::MultiMarkdown qw/ markdown /;
+use List::Util qw/ first /;
 
 use parent 'Email::Simple';
+
+
+sub create {
+    my ( $self, %arg ) = @_;
+
+    my @local_args = qw/ css markdown_engine pre_markdown_filter /;
+    my %md_arg;
+    @md_arg{@local_args} = delete @arg{@local_args};
+
+    my $css = delete $arg{css};
+
+    my $email = $self->SUPER::create(%arg);
+
+    $email->markdown_engine_set(
+        $md_arg{markdown_engine}||'auto'
+    );
+
+    $email->css_set($md_arg{css}) if $md_arg{css};
+    $email->pre_markdown_filter_set($md_arg{pre_markdown_filter}) 
+        if $md_arg{pre_markdown_filter};
+
+    return $email;
+}
+
+
+sub markdown_engine { return $_[0]->{markdown_engine} };
+
+
+our @SUPPORTED_ENGINES = qw/ Text::MultiMarkdown Text::Markdown /;
+
+sub markdown_engine_set {
+    my ( $self, $engine ) = @_;
+
+    $engine = $self->find_markdown_engine if $engine eq 'auto';
+
+    croak "'$engine' is not supported" 
+        unless grep { $_ eq $engine } @SUPPORTED_ENGINES;
+
+    eval "use $engine; 1" or croak "couldn't load '$engine': $@";
+
+    $self->{markdown_engine} = $engine;
+    $self->{markdown_object} = $engine->new;
+
+    return;
+}
+
+sub find_markdown_engine {
+    return first { eval "use $_; 1" } @SUPPORTED_ENGINES
+        or die "No markdown engine found";
+}
+
+sub _markdown {
+    my( $self, $text ) = @_;
+
+    return $self->{markdown_object}->markdown($text);
+}
+
+
+sub css { return $_[0]->{markdown_css} };
+
+
+sub css_set {
+    my( $self, $css ) = @_;
+
+    $self->{markdown_css} = $css;
+}
+
+
+sub pre_markdown_filter_set {
+    my ( $self, $sub ) = @_;
+    $self->{markdown_filter} = $sub;
+    return;
+}
+
 
 
 sub with_markdown {
@@ -30,6 +106,18 @@ sub with_markdown {
 
     $mail->content_type_set('multipart/alternative');
 
+    my $markdown = $body;
+
+    if( $self->{markdown_filter} ) {
+        local $_ = $markdown;
+        $self->{markdown_filter}->();
+        $markdown = $_;
+    }
+    
+    $markdown = $self->_markdown($markdown);
+    $markdown = '<css>'.$self->{markdown_css}.'</css>'.$markdown 
+        if $self->{markdown_css};
+
     $mail->parts_set([
         Email::MIME->create(
             attributes => { content_type => 'text/plain' },
@@ -40,7 +128,7 @@ sub with_markdown {
                 content_type => 'text/html',
                 encoding => 'quoted-printable',
             },
-            body => markdown($body),
+            body => $markdown,
         )
     ]);
 
@@ -62,7 +150,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 =head1 VERSION
 
-version 0.2.0
+version 0.3.0
 
 =head1 SYNOPSIS
 
@@ -93,6 +181,66 @@ The markdown convertion is done using L<Text::MultiMarkdown>.
 
 I<Email::Simple::Markdown> inherits all the methods if L<Email::Simple>. 
 In addition, it provides one more method: I<with_markdown>.
+
+=head2 create( ... ) 
+
+Behaves like L<Email::Simple>'s C<create()>, but accepts the following
+additional arguments:
+
+=over
+
+=item markdown_engine => $module
+
+See C<markdown_engine_set>. If not given, defaults to C<auto>.
+
+=item css => $stylesheet
+
+If provided, the html part of the email will be prepended with the given
+stylesheet, wrapped by a I<css> tag.
+
+=item pre_markdown_filter => sub { ... }
+
+See C<pre_markdown_filter_set>.
+
+=back
+
+=head2 markdown_engine
+
+Returns the markdown engine used by the object.
+
+=head2 markdown_engine_set( $module )
+
+Sets the markdown engine to be used by the object. 
+Currently accepts C<auto>, L<Text::MultiMarkdown> or L<Text::Markdown>.
+
+If not specified or set to C<auto>, the object will use the first markdown module it finds,
+in the order given in the previous paragraph.
+
+=head2 css
+
+Returns the cascading stylesheet that is applied to the html part of the
+email.
+
+=head2 css_set( $stylesheet )
+
+Sets the cascading stylesheet for the html part of the email to be
+I<$stylesheet>.  
+
+    $email->css_set( <<'END_CSS' );
+        p   { color: red; }
+        pre { border-style: dotted; }
+    END_CSS
+
+=head2 pre_markdown_filter_set( sub{ ... } );
+
+Sets a filter to be run on the body before the markdown transformation is
+done. The body will be passed as C<$_> and should be modified in-place.
+
+E.g., to add a header to the email:
+
+    $mail->pre_markdown_filter_set(sub {
+        s#^#<div id="header">My Corp <img src='..' /></div>#;
+    });
 
 =head2 with_markdown()
 

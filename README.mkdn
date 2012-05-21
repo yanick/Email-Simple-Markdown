@@ -4,7 +4,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 # VERSION
 
-version 0.2.0
+version 0.3.0
 
 # SYNOPSIS
 
@@ -35,6 +35,62 @@ The markdown convertion is done using [Text::MultiMarkdown](http://search.cpan.o
 
 _Email::Simple::Markdown_ inherits all the methods if [Email::Simple](http://search.cpan.org/perldoc?Email::Simple). 
 In addition, it provides one more method: _with_markdown_.
+
+## create( ... ) 
+
+Behaves like [Email::Simple](http://search.cpan.org/perldoc?Email::Simple)'s `create()`, but accepts the following
+additional arguments:
+
+- markdown_engine => $module
+
+See `markdown_engine_set`. If not given, defaults to `auto`.
+
+- css => $stylesheet
+
+If provided, the html part of the email will be prepended with the given
+stylesheet, wrapped by a _css_ tag.
+
+- pre_markdown_filter => sub { ... }
+
+See `pre_markdown_filter_set`.
+
+## markdown_engine
+
+Returns the markdown engine used by the object.
+
+## markdown_engine_set( $module )
+
+Sets the markdown engine to be used by the object. 
+Currently accepts `auto`, [Text::MultiMarkdown](http://search.cpan.org/perldoc?Text::MultiMarkdown) or [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
+
+If not specified or set to `auto`, the object will use the first markdown module it finds,
+in the order given in the previous paragraph.
+
+## css
+
+Returns the cascading stylesheet that is applied to the html part of the
+email.
+
+## css_set( $stylesheet )
+
+Sets the cascading stylesheet for the html part of the email to be
+_$stylesheet_.  
+
+    $email->css_set( <<'END_CSS' );
+        p   { color: red; }
+        pre { border-style: dotted; }
+    END_CSS
+
+## pre_markdown_filter_set( sub{ ... } );
+
+Sets a filter to be run on the body before the markdown transformation is
+done. The body will be passed as `$_` and should be modified in-place.
+
+E.g., to add a header to the email:
+
+    $mail->pre_markdown_filter_set(sub {
+        s#^#<div id="header">My Corp <img src='..' /></div>#;
+    });
 
 ## with_markdown()
 

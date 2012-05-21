@@ -7,7 +7,6 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
-    "Carp" => 0,
     "File::Find" => 0,
     "File::Temp" => 0,
     "Module::Build" => "0.3601",
@@ -23,16 +22,17 @@ my %module_build_args = (
     "Yanick Champoux <yanick\@babyl.dyndns.org>"
   ],
   "dist_name" => "Email-Simple-Markdown",
-  "dist_version" => "0.2.0",
+  "dist_version" => "0.3.0",
   "license" => "perl",
   "module_name" => "Email::Simple::Markdown",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
+    "Carp" => 0,
     "Email::Abstract" => 0,
     "Email::MIME" => 0,
     "Email::Simple" => 0,
-    "Text::MultiMarkdown" => 0,
+    "List::Util" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
