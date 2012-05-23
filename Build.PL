@@ -22,7 +22,7 @@ my %module_build_args = (
     "Yanick Champoux <yanick\@babyl.dyndns.org>"
   ],
   "dist_name" => "Email-Simple-Markdown",
-  "dist_version" => "0.3.0",
+  "dist_version" => "0.3.1",
   "license" => "perl",
   "module_name" => "Email::Simple::Markdown",
   "recommends" => {},
@@ -33,6 +33,7 @@ my %module_build_args = (
     "Email::MIME" => 0,
     "Email::Simple" => 0,
     "List::Util" => 0,
+    "Text::MultiMarkdown" => 0,
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
