@@ -159,12 +159,32 @@ I<$stylesheet>.
         pre { border-style: dotted; }
     END_CSS
 
+The I<$stylesheet> can also be an array ref, holding key/value pairs where
+the key is the css selector and the value the attached style. For example, 
+the equivalent call to the one given above would be:
+
+    $email->css_set([
+        p   => 'color: red;',
+        pre => 'border-style: dotted;',
+    ]);
+
 
 
 =cut
 
 sub css_set {
     my( $self, $css ) = @_;
+
+    if ( ref $css eq 'ARRAY' ) {
+        my @css = @$css;
+
+        croak "number of argument is not even" if @css % 2;
+
+        $css = '';
+        while( my( $sel, $style ) = splice @css, 0, 2 ) {
+            $css .= "$sel { $style }\n";
+        }
+    }
 
     $self->{markdown_css} = $css;
 }
