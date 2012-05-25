@@ -235,7 +235,10 @@ sub with_markdown {
     }
     
     $markdown = $self->_markdown($markdown);
-    $markdown = '<css>'.$self->{markdown_css}.'</css>'.$markdown 
+    $markdown = '<style type="text/css">'
+              . $self->{markdown_css}
+              . '</style>'
+              . $markdown 
         if $self->{markdown_css};
 
     $mail->parts_set([

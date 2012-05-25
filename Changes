@@ -2,13 +2,12 @@ Revision history for Email-Simple-Markdown
 
 {{$NEXT}}
 
-0.3.1     2012-05-22
- [API CHANGES]
+ [BUG FIXES]
+ - <style>, not <css>.
 
+0.3.1     2012-05-22
  [BUG FIXES]
  - Add Text::MultiMarkdown to the dependency list.
-
- [DOCUMENTATION]
 
  [ENHANCEMENTS]
  - css can now be passed as an array ref.
