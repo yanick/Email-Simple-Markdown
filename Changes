@@ -5,12 +5,13 @@ Revision history for Email-Simple-Markdown
  [BUG FIXES]
  - <style>, not <css>.
 
+ [ENHANCEMENTS]
+ - css can now be passed as an array ref.
+
 0.3.1     2012-05-22
  [BUG FIXES]
  - Add Text::MultiMarkdown to the dependency list.
 
- [ENHANCEMENTS]
- - css can now be passed as an array ref.
 
 0.3.0 2012-05-21
 
