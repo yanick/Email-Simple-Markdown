@@ -2,6 +2,8 @@ Revision history for Email-Simple-Markdown
 
 {{$NEXT}}
 
+0.4.0     2012-05-28
+
  [BUG FIXES]
  - <style>, not <css>.
 
