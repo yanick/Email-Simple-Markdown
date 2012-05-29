@@ -3,7 +3,7 @@ BEGIN {
   $Email::Simple::Markdown::AUTHORITY = 'cpan:YANICK';
 }
 {
-  $Email::Simple::Markdown::VERSION = '0.3.1';
+  $Email::Simple::Markdown::VERSION = '0.4.0';
 }
 # ABSTRACT: simple email creation with auto text and html multipart body
 
@@ -84,6 +84,17 @@ sub css { return $_[0]->{markdown_css} };
 sub css_set {
     my( $self, $css ) = @_;
 
+    if ( ref $css eq 'ARRAY' ) {
+        my @css = @$css;
+
+        croak "number of argument is not even" if @css % 2;
+
+        $css = '';
+        while( my( $sel, $style ) = splice @css, 0, 2 ) {
+            $css .= "$sel { $style }\n";
+        }
+    }
+
     $self->{markdown_css} = $css;
 }
 
@@ -115,7 +126,10 @@ sub with_markdown {
     }
     
     $markdown = $self->_markdown($markdown);
-    $markdown = '<css>'.$self->{markdown_css}.'</css>'.$markdown 
+    $markdown = '<style type="text/css">'
+              . $self->{markdown_css}
+              . '</style>'
+              . $markdown 
         if $self->{markdown_css};
 
     $mail->parts_set([
@@ -150,7 +164,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 =head1 VERSION
 
-version 0.3.1
+version 0.4.0
 
 =head1 SYNOPSIS
 
@@ -230,6 +244,15 @@ I<$stylesheet>.
         p   { color: red; }
         pre { border-style: dotted; }
     END_CSS
+
+The I<$stylesheet> can also be an array ref, holding key/value pairs where
+the key is the css selector and the value the attached style. For example, 
+the equivalent call to the one given above would be:
+
+    $email->css_set([
+        p   => 'color: red;',
+        pre => 'border-style: dotted;',
+    ]);
 
 =head2 pre_markdown_filter_set( sub{ ... } );
 

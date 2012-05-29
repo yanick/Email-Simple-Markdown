@@ -4,7 +4,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 # VERSION
 
-version 0.3.1
+version 0.4.0
 
 # SYNOPSIS
 
@@ -80,6 +80,15 @@ _$stylesheet_.
         p   { color: red; }
         pre { border-style: dotted; }
     END_CSS
+
+The _$stylesheet_ can also be an array ref, holding key/value pairs where
+the key is the css selector and the value the attached style. For example, 
+the equivalent call to the one given above would be:
+
+    $email->css_set([
+        p   => 'color: red;',
+        pre => 'border-style: dotted;',
+    ]);
 
 ## pre_markdown_filter_set( sub{ ... } );
 
