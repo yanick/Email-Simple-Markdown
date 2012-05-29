@@ -1,32 +1,38 @@
 Revision history for Email-Simple-Markdown
 
 {{$NEXT}}
+ [API CHANGES]
 
-0.4.0     2012-05-28
+ [BUG FIXES]
 
+ [DOCUMENTATION]
+
+ [ENHANCEMENTS]
+
+0.4.0 2012-05-28
  [BUG FIXES]
  - <style>, not <css>.
 
  [ENHANCEMENTS]
  - css can now be passed as an array ref.
 
-0.3.1     2012-05-22
+0.3.1 2012-05-22
  [BUG FIXES]
  - Add Text::MultiMarkdown to the dependency list.
 
-
 0.3.0 2012-05-21
 
-[FEATURES]
+ [FEATURES]
   - Add possibility to add a cascading stylesheet to the html part.
   - Add pre-markdown convertion filter.
   - Add choice of markdown engine (Text::Markdown or Text::MultiMarkdown)
 
 0.2.0     2012-05-21
 
-[BUG FIXES]
+ [BUG FIXES]
   - Add Email::MIME to the dependency list.
 
 0.1.0     2012-05-16
 
   - First version, unleashed on an unsuspecting world.
+
