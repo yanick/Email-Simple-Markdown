@@ -66,6 +66,11 @@ stylesheet, wrapped by a I<css> tag.
 
 See C<pre_markdown_filter_set>.
 
+=item charset => $charset
+
+The character set supplied to C<Email::MIME->create()>. By default, no character set 
+is passed.
+
 =back
 
 
@@ -74,10 +79,11 @@ See C<pre_markdown_filter_set>.
 sub create {
     my ( $self, %arg ) = @_;
 
-    my @local_args = qw/ css markdown_engine pre_markdown_filter /;
+    my @local_args = qw/ css markdown_engine pre_markdown_filter charset /;
     my %md_arg;
     @md_arg{@local_args} = delete @arg{@local_args};
 
+    $self->{_md_charset} = $md_arg{charset};
     my $css = delete $arg{css};
 
     my $email = $self->SUPER::create(%arg);
@@ -243,12 +249,13 @@ sub with_markdown {
 
     $mail->parts_set([
         Email::MIME->create(
-            attributes => { content_type => 'text/plain' },
+            attributes => { content_type => 'text/plain', charset => $self->{_md_charset} },
             body => $body,
         ),
         Email::MIME->create(
             attributes => {
                 content_type => 'text/html',
+                charset => $self->{_md_charset},
                 encoding => 'quoted-printable',
             },
             body => $markdown,
