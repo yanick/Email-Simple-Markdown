@@ -66,6 +66,11 @@ stylesheet, wrapped by a I<css> tag.
 
 See C<pre_markdown_filter_set>.
 
+=item charset => $charset
+
+The character set supplied to C<Email::MIME::create()>. By default, no character set 
+is passed.
+
 =back
 
 
@@ -74,11 +79,9 @@ See C<pre_markdown_filter_set>.
 sub create {
     my ( $self, %arg ) = @_;
 
-    my @local_args = qw/ css markdown_engine pre_markdown_filter /;
+    my @local_args = qw/ css markdown_engine pre_markdown_filter charset /;
     my %md_arg;
     @md_arg{@local_args} = delete @arg{@local_args};
-
-    my $css = delete $arg{css};
 
     my $email = $self->SUPER::create(%arg);
 
@@ -86,6 +89,7 @@ sub create {
         $md_arg{markdown_engine}||'auto'
     );
 
+    $self->charset_set( $md_arg{charset} ) if $md_arg{charset};
     $email->css_set($md_arg{css}) if $md_arg{css};
     $email->pre_markdown_filter_set($md_arg{pre_markdown_filter}) 
         if $md_arg{pre_markdown_filter};
@@ -187,6 +191,8 @@ sub css_set {
     }
 
     $self->{markdown_css} = $css;
+
+    return $self;
 }
 
 =head2 pre_markdown_filter_set( sub{ ... } );
@@ -205,7 +211,20 @@ E.g., to add a header to the email:
 sub pre_markdown_filter_set {
     my ( $self, $sub ) = @_;
     $self->{markdown_filter} = $sub;
-    return;
+    return $self;
+}
+
+=head2 charset_set( $charset )
+
+Sets the charset to be used by the email.
+
+=cut
+
+sub charset_set {
+    my( $self, $charset ) = @_;
+    $self->{markdown_charset} = $charset;
+
+    return $self;
 }
 
 
@@ -243,12 +262,16 @@ sub with_markdown {
 
     $mail->parts_set([
         Email::MIME->create(
-            attributes => { content_type => 'text/plain' },
+            attributes => { 
+                content_type => 'text/plain', 
+                charset => $self->{markdown_charset} 
+            },
             body => $body,
         ),
         Email::MIME->create(
             attributes => {
                 content_type => 'text/html',
+                charset => $self->{markdown_charset},
                 encoding => 'quoted-printable',
             },
             body => $markdown,

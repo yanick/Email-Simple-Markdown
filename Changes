@@ -8,6 +8,8 @@ Revision history for Email-Simple-Markdown
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+ - charset can be specified for email content. 
+    (patch by Alessandro Ranellucci, issue#4)
 
 0.4.0 2012-05-28
  [BUG FIXES]
