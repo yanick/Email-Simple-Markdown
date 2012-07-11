@@ -16,3 +16,4 @@ t/basic.t
 t/css.t
 t/engine.t
 t/filter.t
+xt/release/unused-vars.t

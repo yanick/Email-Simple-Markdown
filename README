@@ -3,7 +3,7 @@ NAME
     multipart body
 
 VERSION
-    version 0.4.0
+    version 0.5.0
 
 SYNOPSIS
         use Email::Simple::Markdown;
@@ -46,6 +46,10 @@ METHODS
     pre_markdown_filter => sub { ... }
         See "pre_markdown_filter_set".
 
+    charset => $charset
+        The character set supplied to "Email::MIME::create()". By default,
+        no character set is passed.
+
   markdown_engine
     Returns the markdown engine used by the object.
 
@@ -87,6 +91,9 @@ METHODS
         $mail->pre_markdown_filter_set(sub {
             s#^#<div id="header">My Corp <img src='..' /></div>#;
         });
+
+  charset_set( $charset )
+    Sets the charset to be used by the email.
 
   with_markdown()
     Returns an Email::Abstract representation of the email, with its
