@@ -89,7 +89,7 @@ sub create {
         $md_arg{markdown_engine}||'auto'
     );
 
-    $self->charset_set( $md_arg{charset} ) if $md_arg{charset};
+    $email->charset_set( $md_arg{charset} ) if $md_arg{charset};
     $email->css_set($md_arg{css}) if $md_arg{css};
     $email->pre_markdown_filter_set($md_arg{pre_markdown_filter}) 
         if $md_arg{pre_markdown_filter};
