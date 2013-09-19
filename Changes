@@ -4,6 +4,7 @@ Revision history for Email-Simple-Markdown
  [API CHANGES]
 
  [BUG FIXES]
+ - Small fix for charset failing in constructor. (GH#5, gavincarr)
 
  [DOCUMENTATION]
 
