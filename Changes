@@ -1,8 +1,15 @@
 Revision history for Email-Simple-Markdown
 
+0.5.1 2013-09-18
+ [BUG FIXES]
+ - Small fix for charset failing in constructor. (GH#5, gavincarr)
+
+ [STATISTICS]
+ - code churn: 4 files changed, 53 insertions(+), 14 deletions(-)
+
 0.5.0 2012-07-10
  [ENHANCEMENTS]
- - charset can be specified for email content.	   (patch by Alessandro
+ - charset can be specified for email content.	      (patch by Alessandro
    Ranellucci, issue#4)
 
  [STATISTICS]

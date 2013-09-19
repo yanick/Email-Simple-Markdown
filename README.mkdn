@@ -4,7 +4,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 # VERSION
 
-version 0.5.0
+version 0.5.1
 
 # SYNOPSIS
 
@@ -34,14 +34,14 @@ The markdown convertion is done using [Text::MultiMarkdown](http://search.cpan.o
 # METHODS
 
 _Email::Simple::Markdown_ inherits all the methods if [Email::Simple](http://search.cpan.org/perldoc?Email::Simple). 
-In addition, it provides one more method: _with_markdown_.
+In addition, it provides one more method: _with\_markdown_.
 
 ## create( ... ) 
 
 Behaves like [Email::Simple](http://search.cpan.org/perldoc?Email::Simple)'s `create()`, but accepts the following
 additional arguments:
 
-- markdown_engine => $module
+- markdown\_engine => $module
 
 See `markdown_engine_set`. If not given, defaults to `auto`.
 
@@ -50,7 +50,7 @@ See `markdown_engine_set`. If not given, defaults to `auto`.
 If provided, the html part of the email will be prepended with the given
 stylesheet, wrapped by a _css_ tag.
 
-- pre_markdown_filter => sub { ... }
+- pre\_markdown\_filter => sub { ... }
 
 See `pre_markdown_filter_set`.
 
@@ -59,11 +59,11 @@ See `pre_markdown_filter_set`.
 The character set supplied to `Email::MIME::create()`. By default, no character set 
 is passed.
 
-## markdown_engine
+## markdown\_engine
 
 Returns the markdown engine used by the object.
 
-## markdown_engine_set( $module )
+## markdown\_engine\_set( $module )
 
 Sets the markdown engine to be used by the object. 
 Currently accepts `auto`, [Text::MultiMarkdown](http://search.cpan.org/perldoc?Text::MultiMarkdown) or [Text::Markdown](http://search.cpan.org/perldoc?Text::Markdown).
@@ -76,7 +76,7 @@ in the order given in the previous paragraph.
 Returns the cascading stylesheet that is applied to the html part of the
 email.
 
-## css_set( $stylesheet )
+## css\_set( $stylesheet )
 
 Sets the cascading stylesheet for the html part of the email to be
 _$stylesheet_.  
@@ -95,7 +95,7 @@ the equivalent call to the one given above would be:
         pre => 'border-style: dotted;',
     ]);
 
-## pre_markdown_filter_set( sub{ ... } );
+## pre\_markdown\_filter\_set( sub{ ... } );
 
 Sets a filter to be run on the body before the markdown transformation is
 done. The body will be passed as `$_` and should be modified in-place.
@@ -106,18 +106,18 @@ E.g., to add a header to the email:
         s#^#<div id="header">My Corp <img src='..' /></div>#;
     });
 
-## charset_set( $charset )
+## charset\_set( $charset )
 
 Sets the charset to be used by the email.
 
-## with_markdown()
+## with\_markdown()
 
 Returns an [Email::Abstract](http://search.cpan.org/perldoc?Email::Abstract) representation of the email, with 
 its multipart body.
 
 # AUTHOR
 
-Yanick Champoux <yanick@babyl.dyndns.org>
+Yanick Champoux <yanick@babyl.dyndns.org> [![endorse](http://api.coderwall.com/yanick/endorsecount.png)](http://coderwall.com/yanick)
 
 # COPYRIGHT AND LICENSE
 

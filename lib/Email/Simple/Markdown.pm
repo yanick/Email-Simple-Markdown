@@ -3,7 +3,7 @@ BEGIN {
   $Email::Simple::Markdown::AUTHORITY = 'cpan:YANICK';
 }
 {
-  $Email::Simple::Markdown::VERSION = '0.5.0';
+  $Email::Simple::Markdown::VERSION = '0.5.1';
 }
 # ABSTRACT: simple email creation with auto text and html multipart body
 
@@ -35,7 +35,7 @@ sub create {
         $md_arg{markdown_engine}||'auto'
     );
 
-    $self->charset_set( $md_arg{charset} ) if $md_arg{charset};
+    $email->charset_set( $md_arg{charset} ) if $md_arg{charset};
     $email->css_set($md_arg{css}) if $md_arg{css};
     $email->pre_markdown_filter_set($md_arg{pre_markdown_filter}) 
         if $md_arg{pre_markdown_filter};
@@ -169,6 +169,7 @@ sub as_string {
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -177,7 +178,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 =head1 VERSION
 
-version 0.5.0
+version 0.5.1
 
 =head1 SYNOPSIS
 
@@ -304,4 +305,3 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-
