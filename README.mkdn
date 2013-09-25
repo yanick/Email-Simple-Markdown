@@ -4,7 +4,7 @@ Email::Simple::Markdown - simple email creation with auto text and html multipar
 
 # VERSION
 
-version 0.5.1
+version 0.5.2
 
 # SYNOPSIS
 

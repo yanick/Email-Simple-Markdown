@@ -54,7 +54,7 @@
    "provides" : {
       "Email::Simple::Markdown" : {
          "file" : "lib/Email/Simple/Markdown.pm",
-         "version" : "v0.5.1"
+         "version" : "v0.5.2"
       }
    },
    "release_status" : "stable",
@@ -70,7 +70,7 @@
          "web" : "https://github.com/yanick/Email-Simple-Markdown"
       }
    },
-   "version" : "0.5.1",
+   "version" : "0.5.2",
    "x_author_pledge" : {
       "version" : 1
    },
