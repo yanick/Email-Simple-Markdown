@@ -4,6 +4,7 @@ Revision history for Email-Simple-Markdown
  [API CHANGES]
 
  [BUG FIXES]
+ - Wrong use of 'or' with return. (Roy Tate)
 
  [DOCUMENTATION]
 

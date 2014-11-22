@@ -134,8 +134,10 @@ sub markdown_engine_set {
 }
 
 sub find_markdown_engine {
-    return first { eval "use $_; 1" } @SUPPORTED_ENGINES
-        or die "No markdown engine found";
+    return ( 
+        first { eval "use $_; 1" } @SUPPORTED_ENGINES
+        or die "No markdown engine found" 
+    );
 }
 
 sub _markdown {
