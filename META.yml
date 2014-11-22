@@ -1,0 +1,45 @@
+---
+abstract: 'simple email creation with auto text and html multipart body'
+author:
+  - 'Yanick Champoux <yanick@cpan.org>'
+build_requires:
+  File::Spec: '0'
+  IO::Handle: '0'
+  IPC::Open3: '0'
+  Module::Build: '0.28'
+  Test::More: '0.88'
+  perl: '5.006'
+configure_requires:
+  Module::Build: '0.28'
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.023, CPAN::Meta::Converter version 2.142690'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Email-Simple-Markdown
+provides:
+  Email::Simple::Markdown:
+    file: lib/Email/Simple/Markdown.pm
+    version: v0.5.3
+requires:
+  Carp: '0'
+  Email::Abstract: '0'
+  Email::MIME: '0'
+  Email::Simple: '0'
+  List::Util: '0'
+  Text::MultiMarkdown: '0'
+  parent: '0'
+  strict: '0'
+  warnings: '0'
+resources:
+  bugtracker: https://github.com/yanick/Email-Simple-Markdown/issues
+  homepage: https://github.com/yanick/Email-Simple-Markdown
+  repository: https://github.com/yanick/Email-Simple-Markdown.git
+version: 0.5.3
+x_author_pledge:
+  version: 1
+x_authority: cpan:YANICK
+x_contributors:
+  - 'Alessandro Ranellucci <aar@cpan.org>'
+  - 'Gavin Carr <gavin@openfusion.com.au>'

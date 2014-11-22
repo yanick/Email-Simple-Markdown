@@ -1,18 +1,11 @@
 Revision history for Email-Simple-Markdown
 
-{{$NEXT}}
- [API CHANGES]
-
+0.5.3 2014-11-21
  [BUG FIXES]
  - Wrong use of 'or' with return. (Roy Tate)
 
- [DOCUMENTATION]
-
- [ENHANCEMENTS]
-
- [NEW FEATURES]
-
  [STATISTICS]
+ - code churn: 6 files changed, 76 insertions(+), 17 deletions(-)
 
 0.5.2 2013-09-25
  [BUG FIXES]
@@ -31,7 +24,7 @@ Revision history for Email-Simple-Markdown
 
 0.5.0 2012-07-10
  [ENHANCEMENTS]
- - charset can be specified for email content.		    (patch by
+ - charset can be specified for email content.			  (patch by
    Alessandro Ranellucci, issue#4)
 
  [STATISTICS]
