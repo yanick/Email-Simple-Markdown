@@ -8,6 +8,7 @@ Revision history for Email-Simple-Markdown
  [DOCUMENTATION]
 
  [ENHANCEMENTS]
+ - use Module::Runtime instead of raw evals.
 
  [NEW FEATURES]
 
