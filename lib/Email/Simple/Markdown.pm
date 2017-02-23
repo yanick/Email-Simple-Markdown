@@ -103,6 +103,9 @@ Returns the markdown engine used by the object.
 
 =cut
 
+# TODO split pod and code
+# TODO Moo'fy this base
+
 sub markdown_engine { return $_[0]->{markdown_engine} };
 
 =head2 markdown_engine_set( $module )
@@ -125,6 +128,7 @@ sub markdown_engine_set {
     croak "'$engine' is not supported" 
         unless grep { $_ eq $engine } @SUPPORTED_ENGINES;
 
+    # use Module::Runtime
     eval "use $engine; 1" or croak "couldn't load '$engine': $@";
 
     $self->{markdown_engine} = $engine;
@@ -135,6 +139,7 @@ sub markdown_engine_set {
 
 sub find_markdown_engine {
     return ( 
+        # use Module::Runtime
         first { eval "use $_; 1" } @SUPPORTED_ENGINES
         or die "No markdown engine found" 
     );
