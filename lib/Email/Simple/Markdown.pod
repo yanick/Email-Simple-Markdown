@@ -63,10 +63,11 @@ Returns the markdown engine used by the object.
 =head2 markdown_engine_set( $module )
 
 Sets the markdown engine to be used by the object. 
-Currently accepts C<auto>, L<Text::MultiMarkdown> or L<Text::Markdown>.
+Accepts C<auto>, L<Text::MultiMarkdown>, L<Text::Markdown>, or any module
+implementing a C<markdown> method.
 
-If not specified or set to C<auto>, the object will use the first markdown module it finds,
-in the order given in the previous paragraph.
+If not specified or set to C<auto>, the object will use the first markdown module it finds
+between L<Text::MultiMarkdown> and L<Text::Markdown>.
 
 =head2 css
 

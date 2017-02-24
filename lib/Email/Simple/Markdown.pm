@@ -1,7 +1,6 @@
 package Email::Simple::Markdown;
 # ABSTRACT: simple email creation with auto text and html multipart body
 
-
 use strict;
 use warnings;
 
@@ -11,20 +10,25 @@ use Email::Abstract;
 use Email::MIME;
 use Email::Simple;
 
-use List::Util qw/ first /;
+use List::Util qw/ first pairmap /;
 use Module::Runtime qw/ use_module /;
 
-use parent 'Email::Simple';
+use Moo;
+extends 'Email::Simple';
 
+sub BUILDARGS {
+    my $class = shift;
+    return {};
+}
 
-sub create {
-    my ( $self, %arg ) = @_;
+around create => sub {
+    my ( $orig, $self, %arg ) = @_;
 
     my @local_args = qw/ css markdown_engine pre_markdown_filter charset /;
     my %md_arg;
     @md_arg{@local_args} = delete @arg{@local_args};
 
-    my $email = $self->SUPER::create(%arg);
+    my $email = $orig->( $self, %arg );
 
     $email->markdown_engine_set(
         $md_arg{markdown_engine}||'auto'
@@ -36,82 +40,76 @@ sub create {
         if $md_arg{pre_markdown_filter};
 
     return $email;
-}
-
-
-# TODO Moo'fy this base
-
-sub markdown_engine { return $_[0]->{markdown_engine} };
-
+};
 
 our @SUPPORTED_ENGINES = qw/ Text::MultiMarkdown Text::Markdown /;
 
-sub markdown_engine_set {
-    my ( $self, $engine ) = @_;
+has markdown_engine => (
+    is              => 'rw',
+    lazy            => 1,
+    default         => sub { $_[0]->find_markdown_engine },
+    clearer         => 1,
+    coerce          => sub {
+        my( $value ) = @_;
+        
+        return $value eq 'auto'
+            ? __PACKAGE__->find_markdown_engine 
+            : $value;
+    },
+    trigger => sub{
+        my( $self, $engine ) = @_;
+        
+        die "engine '$engine' not implementing a 'markdown' method\n"
+            unless use_module($engine)->can('markdown');
 
-    $engine = $self->find_markdown_engine if $engine eq 'auto';
+        $self->clear_markdown_object;
+    },
+    writer => 'markdown_engine_set',
+);
 
-    croak "'$engine' is not supported" 
-        unless grep { $_ eq $engine } @SUPPORTED_ENGINES;
-
-    use_module( $engine );
-
-    $self->{markdown_engine} = $engine;
-    $self->{markdown_object} = $engine->new;
-
-    return;
-}
+has markdown_object => (
+    is      => 'rw',
+    lazy    => 1,
+    clearer => 1,
+    default => sub { $_[0]->{markdown_engine}->new },
+    handles => {
+        _markdown => 'markdown',
+    }
+);
 
 sub find_markdown_engine {
     first { eval { use_module($_) } } @SUPPORTED_ENGINES
         or die "No supported markdown engine found" 
 }
 
-sub _markdown {
-    my( $self, $text ) = @_;
+has markdown_css => (
+    is => 'rw',
+    reader => 'css',
+    writer => 'css_set',
+    coerce => sub {
+        my $css = shift;
 
-    return $self->{markdown_object}->markdown($text);
-}
+        if ( ref $css eq 'ARRAY' ) {
+            my @css = @$css;
 
+            croak "number of argument is not even" if @css % 2;
 
-sub css { return $_[0]->{markdown_css} };
-
-
-sub css_set {
-    my( $self, $css ) = @_;
-
-    if ( ref $css eq 'ARRAY' ) {
-        my @css = @$css;
-
-        croak "number of argument is not even" if @css % 2;
-
-        $css = '';
-        while( my( $sel, $style ) = splice @css, 0, 2 ) {
-            $css .= "$sel { $style }\n";
+            $css = join "\n", pairmap { "$a { $b }" } @css;
         }
-    }
 
-    $self->{markdown_css} = $css;
+        $css;
+    },
+);
 
-    return $self;
-}
+has markdown_filter => (
+    is => 'rw',
+    writer => 'pre_markdown_filter_set',
+);
 
-
-sub pre_markdown_filter_set {
-    my ( $self, $sub ) = @_;
-    $self->{markdown_filter} = $sub;
-    return $self;
-}
-
-
-sub charset_set {
-    my( $self, $charset ) = @_;
-    $self->{markdown_charset} = $charset;
-
-    return $self;
-}
-
-
+has markdown_charset => (
+    is => 'rw',
+    writer => 'charset_set',
+);
 
 sub with_markdown {
     my $self = shift;
@@ -125,32 +123,32 @@ sub with_markdown {
 
     my $markdown = $body;
 
-    if( $self->{markdown_filter} ) {
+    if( my $filter =  $self->markdown_filter ) {
         local $_ = $markdown;
-        $self->{markdown_filter}->();
+        $filter->();
         $markdown = $_;
     }
     
     $markdown = $self->_markdown($markdown);
     $markdown = '<style type="text/css">'
-              . $self->{markdown_css}
+              . $self->css
               . '</style>'
               . $markdown 
-        if $self->{markdown_css};
+        if $self->css;
 
     $mail->parts_set([
         Email::MIME->create(
             attributes => { 
-                content_type => 'text/plain', 
-                charset => $self->{markdown_charset} 
+                content_type => 'text/plain',
+                charset      => $self->markdown_charset
             },
             body => $body,
         ),
         Email::MIME->create(
             attributes => {
                 content_type => 'text/html',
-                charset => $self->{markdown_charset},
-                encoding => 'quoted-printable',
+                charset      => $self->markdown_charset,
+                encoding     => 'quoted-printable',
             },
             body => $markdown,
         )
@@ -159,8 +157,6 @@ sub with_markdown {
     return Email::Abstract->new($mail);
 }
 
-sub as_string {
-    return $_[0]->with_markdown->as_string;
-}
+sub as_string { $_[0]->with_markdown->as_string }
 
 1;

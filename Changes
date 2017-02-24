@@ -9,6 +9,8 @@ Revision history for Email-Simple-Markdown
 
  [ENHANCEMENTS]
  - use Module::Runtime instead of raw evals.
+ - The engine can now be any class implementing a 'markdown' method.
+ - Email::Simple::Markdown Moo'fied.
 
  [NEW FEATURES]
 
