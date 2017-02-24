@@ -17,7 +17,6 @@ use Moo;
 extends 'Email::Simple';
 
 sub BUILDARGS {
-    my $class = shift;
     return {};
 }
 
