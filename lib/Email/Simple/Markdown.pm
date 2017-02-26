@@ -120,21 +120,6 @@ sub with_markdown {
 
     $mail->content_type_set('multipart/alternative');
 
-    my $markdown = $body;
-
-    if( my $filter =  $self->markdown_filter ) {
-        local $_ = $markdown;
-        $filter->();
-        $markdown = $_;
-    }
-    
-    $markdown = $self->_markdown($markdown);
-    $markdown = '<style type="text/css">'
-              . $self->css
-              . '</style>'
-              . $markdown 
-        if $self->css;
-
     $mail->parts_set([
         Email::MIME->create(
             attributes => { 
@@ -149,11 +134,32 @@ sub with_markdown {
                 charset      => $self->markdown_charset,
                 encoding     => 'quoted-printable',
             },
-            body => $markdown,
+            body => $self->markdown_part,
         )
     ]);
 
     return Email::Abstract->new($mail);
+}
+
+sub markdown_part {
+    my $self = shift;
+
+    my $markdown = $self->body;
+
+    if( my $filter =  $self->markdown_filter ) {
+        local $_ = $markdown;
+        $filter->();
+        $markdown = $_;
+    }
+    
+    $markdown = $self->_markdown($markdown);
+    $markdown = '<style type="text/css">'
+              . $self->css
+              . '</style>'
+              . $markdown 
+        if $self->css;
+
+    return $markdown;
 }
 
 sub as_string { $_[0]->with_markdown->as_string }
