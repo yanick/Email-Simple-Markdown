@@ -4,6 +4,7 @@ Revision history for Email-Simple-Markdown
   [ API CHANGES ]
 
   [ BUG FIXES ]
+  - tests were complaining if Email::Stuffer isn't present. (GH#7)
 
   [ DOCUMENTATION ]
 

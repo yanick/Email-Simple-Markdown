@@ -56,7 +56,8 @@ use warnings;
 
 use Role::Tiny;
 use Email::Simple::Markdown;
-use Email::Stuffer;
+
+eval { require Email::Stuffer };
 
 use parent 'Exporter';
 
