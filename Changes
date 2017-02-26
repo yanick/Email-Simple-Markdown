@@ -1,18 +1,11 @@
 Revision history for Email-Simple-Markdown
 
-{{$NEXT}}
-  [ API CHANGES ]
-
+0.7.1 2017-02-26
   [ BUG FIXES ]
-  - tests were complaining if Email::Stuffer isn't present. (GH#7)
-
-  [ DOCUMENTATION ]
-
-  [ ENHANCEMENTS ]
-
-  [ NEW FEATURES ]
+    - tests were complaining if Email::Stuffer isn't present. (GH#7)
 
   [ STATISTICS ]
+    - code churn: 2 files changed, 13 insertions(+), 5 deletions(-)
 
 0.7.0 2017-02-26
   [ ENHANCEMENTS ]
@@ -55,7 +48,7 @@ Revision history for Email-Simple-Markdown
 
 0.5.0 2012-07-10
   [ ENHANCEMENTS ]
-    - charset can be specified for email content.		  (patch by
+    - charset can be specified for email content.	      (patch by
       Alessandro Ranellucci, issue#4)
 
   [ STATISTICS ]
