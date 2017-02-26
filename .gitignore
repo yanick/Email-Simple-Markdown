@@ -1,3 +1,4 @@
 /Email-Simple-Markdown*
 .build
 *.orig
+.envrc

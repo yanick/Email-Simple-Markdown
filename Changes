@@ -8,6 +8,8 @@ Revision history for Email-Simple-Markdown
   [ DOCUMENTATION ]
 
   [ ENHANCEMENTS ]
+  - addition of Email::Simple::Mardown::Stuffer
+        for Email::Stuffer interaction.
 
   [ NEW FEATURES ]
 
