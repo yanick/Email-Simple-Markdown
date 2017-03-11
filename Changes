@@ -1,18 +1,11 @@
 Revision history for Email-Simple-Markdown
 
-{{$NEXT}}
-  [ API CHANGES ]
-
+0.7.2 2017-03-10
   [ BUG FIXES ]
-  - Need List::Util >= 1.29
-
-  [ DOCUMENTATION ]
-
-  [ ENHANCEMENTS ]
-
-  [ NEW FEATURES ]
+    - Need List::Util >= 1.29
 
   [ STATISTICS ]
+    - code churn: 2 files changed, 10 insertions(+), 3 deletions(-)
 
 0.7.1 2017-02-26
   [ BUG FIXES ]
@@ -62,7 +55,7 @@ Revision history for Email-Simple-Markdown
 
 0.5.0 2012-07-10
   [ ENHANCEMENTS ]
-    - charset can be specified for email content.	      (patch by
+    - charset can be specified for email content.	  (patch by
       Alessandro Ranellucci, issue#4)
 
   [ STATISTICS ]
