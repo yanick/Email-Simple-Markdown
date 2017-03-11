@@ -4,6 +4,7 @@ Revision history for Email-Simple-Markdown
   [ API CHANGES ]
 
   [ BUG FIXES ]
+  - Need List::Util >= 1.29
 
   [ DOCUMENTATION ]
 

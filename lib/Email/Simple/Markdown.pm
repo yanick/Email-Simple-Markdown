@@ -10,7 +10,7 @@ use Email::Abstract;
 use Email::MIME;
 use Email::Simple;
 
-use List::Util qw/ first pairmap /;
+use List::Util 1.29 qw/ first pairmap /;
 use Module::Runtime qw/ use_module /;
 
 use Moo;
