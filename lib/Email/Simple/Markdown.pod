@@ -16,7 +16,7 @@
 =head1 DESCRIPTION
 
 I<Email::Simple::Markdown> behaves almost exactly like L<Email::Simple>,
-excepts for one detail: when its method C<as_string()> is invoked, the
+except for one detail: when its method C<as_string()> is invoked, the
 returned string representation of the email has multipart body with a 
 I<text/plain> element (the original body), and a I<text/html> element,
 the markdown rendering of the text body.
@@ -25,7 +25,7 @@ The markdown convertion is done using L<Text::MultiMarkdown>.
 
 =head1 METHODS
 
-I<Email::Simple::Markdown> inherits all the methods if L<Email::Simple>. 
+I<Email::Simple::Markdown> inherits all the methods of L<Email::Simple>. 
 In addition, it provides one more method: I<with_markdown>.
 
 =head2 create( ... ) 
