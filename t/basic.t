@@ -29,4 +29,4 @@ like $text => qr#Content-Type: text/plain\s*\n#, "no content type";
 
 $email->charset_set('utf8');
 
-like $email->as_string => qr#Content-Type: text/plain; charset="utf8"\s*\n#, "content type is utf8";
+like $email->as_string => qr#Content-Type: text/plain; charset="?utf8"?\s*\n#, "content type is utf8";
